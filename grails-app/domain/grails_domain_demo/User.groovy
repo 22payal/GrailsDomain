@@ -15,6 +15,11 @@ class User {
     List<Topic> topic
     String name
 
+    String  getName() {
+        name= firstName+lastName
+    }
+
+
     static hasMany = [topic:Topic,subscription:Subscription,readingItem:ReadingItem,resource:Resource,resourceRating:ResourceRating]
 
 
