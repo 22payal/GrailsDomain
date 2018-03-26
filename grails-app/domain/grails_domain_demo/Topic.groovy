@@ -9,8 +9,9 @@ class Topic {
     Date lastUpdated
     User createdBy
     Visibility visibility
+    List<Subscription> subscription
 
-    static hasMany = [subscriptions:Subscription,resource:Resource]
+    static hasMany = [subscription:Subscription,resource:Resource]
 
 
 
@@ -22,10 +23,6 @@ class Topic {
         createdBy(nullable: false)
         visibility(nullable: false)
     }
-//
-//    static mapping = {
-//
-//
-//    }
+
 }
 

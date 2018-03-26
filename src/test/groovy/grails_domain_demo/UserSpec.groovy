@@ -21,7 +21,7 @@ class UserSpec extends Specification implements DomainUnitTest<User> {
         setup:
         String email = "payal.nigam@tothenew.com"
         String password = 'payal123'
-        User user = new User(
+        User user1 = new User(
                 email: email,
                 userName:"payalNigam",
                 password:password,
@@ -35,9 +35,97 @@ class UserSpec extends Specification implements DomainUnitTest<User> {
         )
 
         when:
-        user.validate()
-
+        user1.save()
         then:
-        user.save(flush: true , failOnError: true)
+        User.count() == 1
+
+
+        when:
+        User user2= new User(
+                email: email,
+                userName:"NewUser",
+                password:password,
+                firstName: "new",
+                lastName: "user",
+                admin: false,
+                active:true
+        )
+        user2.save()
+        then:
+        user2.errors.allErrors.size() == 1
+    }
+
+    def "Email address of user should not be blank"() {
+        setup:
+        String email = "payal.nigam@tothenew.com"
+        String password = 'payal123'
+        User user1 = new User(
+                email: email,
+                userName:"payalNigam",
+                password:password,
+                firstName: "Payal",
+                lastName: "Nigam",
+                photo:"123456789",
+                admin:false,
+                active:true,
+                dateCreated:'Thu Mar 26 14:27:15 GST 2018' ,
+                lastUpdated:'Thu Mar 26 14:27:15 GST 2018'
+        )
+
+
+        when:
+        user1.save()
+        then:
+        user1.count() == 1
+
+        when:
+        User user2= new User(
+                email:"",
+                userName:"NewUser",
+                password:password,
+                firstName: "New",
+                lastName: "User",
+                admin:false,
+                active:true
+        )
+
+        user2.save()
+        then:
+        user2.errors.allErrors.size() == 1
+    }
+
+    def "Email address of user should not be null"() {
+        setup:
+
+        String email = "payal.nigam@tothenew.com"
+        String password = 'payal123'
+        User user1 = new User(
+                email: email,
+                userName:"payalNigam",
+                password:password,
+                firstName: "Payal",
+                lastName: "Nigam",
+                admin:false,
+                active:true
+        )
+
+        when:
+        user1.save()
+        then:
+        user1.count() == 1
+
+        when:
+        User user2= new User(
+                email:null,userName:"NewUser",
+                password:password,
+                firstName: "New",
+                lastName: "User",
+                admin:false,
+                active:true
+        )
+
+        user2.save()
+        then:
+        user2.errors.allErrors.size() == 1
     }
 }

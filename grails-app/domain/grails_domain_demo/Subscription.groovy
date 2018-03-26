@@ -6,15 +6,14 @@ class Subscription {
     Topic topic
     User user
 
-
     Date dateCreated
     static belongsTo = [topic:Topic,user:User]
 
     Seriousness seriousness
 
     static constraints = {
-        user (nullable: false)
-        topic(nullable: false)
+        user (nullable: false , unique:'user')
+        topic(nullable: false , unique:'user')
         seriousness(nullable:false)
 
     }

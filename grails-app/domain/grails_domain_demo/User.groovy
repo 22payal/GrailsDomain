@@ -12,11 +12,13 @@ class User {
     Date dateCreated
     Date lastUpdated
     Byte photo
+    List<Topic> topic
+    String name
+    
+    static hasMany = [topic:Topic,subscription:Subscription,readingItem:ReadingItem,resource:Resource,resourceRating:ResourceRating]
 
-    static hasMany = [topic:Topic,subscription:Subscription,readingItem:ReadingItem,resource:Resource]
 
-
-    static transients = ['pia']
+    static transients = ['name']
 
     static constraints = {
         email(email: true,unique: true ,blank: false , nullable: false)
@@ -24,7 +26,7 @@ class User {
         firstName(blank: false ,nullable: false)
         lastName(blank: false , nullable: false)
         userName(unique: true, blank:false)
-        photo(nullable: true)
+        photo(nullable: true,sqlType:'longBlob')
         admin(nullable:true)
         active(nullable: true)
 

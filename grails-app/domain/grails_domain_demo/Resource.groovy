@@ -7,7 +7,7 @@ abstract class Resource {
     Date dateCreated
     Date lastUpdated
 
-    static hasMany = [ratings:ResourceRating,readingItem:ReadingItem]
+    static hasMany = [resourceRating:ResourceRating,readingItem:ReadingItem]
 
     static belongsTo = [createdBy:User,topic:Topic]
 
