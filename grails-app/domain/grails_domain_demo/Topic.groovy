@@ -8,10 +8,11 @@ class Topic {
     Date dateCreated
     Date lastUpdated
     User createdBy
+    Visibility visibility
 
     static hasMany = [subscriptions:Subscription,resource:Resource]
 
- Visibility visibility
+
 
     static belongsTo = [createdBy:User]
 

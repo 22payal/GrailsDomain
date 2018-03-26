@@ -1,6 +1,6 @@
 package grails_domain_demo
 
-class User implements Serializable{
+class User {
 
     String firstName
     String lastName
@@ -15,18 +15,14 @@ class User implements Serializable{
 
     static hasMany = [topic:Topic,subscription:Subscription,readingItem:ReadingItem,resource:Resource]
 
-    String getName()
-    {
-        println(name.toString())
-    }
 
     static transients = ['pia']
 
     static constraints = {
         email(email: true,unique: true ,blank: false , nullable: false)
         password(size: 5..15, blank: false ,nullable: false)
-        //firstName(blank: false ,nullable: false)
-        //lastName(blank: false , nullable: false)
+        firstName(blank: false ,nullable: false)
+        lastName(blank: false , nullable: false)
         userName(unique: true, blank:false)
         photo(nullable: true)
         admin(nullable:true)
@@ -34,9 +30,5 @@ class User implements Serializable{
 
     }
 
-    static mapping = {
-        id composite: ['firstName','lastName']
-        table("mytable")
-    }
 
 }

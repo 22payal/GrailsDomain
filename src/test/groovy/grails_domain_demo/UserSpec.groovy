@@ -35,9 +35,9 @@ class UserSpec extends Specification implements DomainUnitTest<User> {
         )
 
         when:
-        user.save()
+        user.validate()
 
         then:
-        user.count() == 1
+        user.save(flush: true , failOnError: true)
     }
 }
