@@ -47,6 +47,8 @@ class SubscriptionSpec extends Specification implements DomainUnitTest<Subscript
 
         then:
         subscription.errors.hasErrors()==true
+
+
     }
 
     def "Topic should not be null"(){
@@ -150,7 +152,7 @@ class SubscriptionSpec extends Specification implements DomainUnitTest<Subscript
         user.save(flush:true)
 
         then:
-        User.count==1
+        Subscription.count==1
 
         when:
         Subscription subscription2=new Subscription(seriousness:null, user:user,topics:topic)

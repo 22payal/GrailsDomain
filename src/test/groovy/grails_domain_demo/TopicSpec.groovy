@@ -53,6 +53,20 @@ class TopicSpec extends Specification implements DomainUnitTest<Topic> {
 
         then:
         user.errors.hasErrors() == true
+
+        when:
+        Topic topic3 = new Topic()
+        topic3.createdBy = user
+        topic3.topicName = "NewTopic"
+
+        topic3.visibility = Visibility.PRIVATE
+
+        user.addToTopic(topic3)
+        user.validate()
+        user.save(flush: true)
+
+        then:
+        Topic.count==1
     }
 
     def "Topic name should not be null or blank"(){

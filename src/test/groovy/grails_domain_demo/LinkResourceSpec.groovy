@@ -41,7 +41,7 @@ class LinkResourceSpec extends Specification implements DomainUnitTest<LinkResou
         user.save()
 
         then:
-        User.count == 1
+        LinkResource.count == 1
 
         when:
         LinkResource linkResource2 = new LinkResource(url: "www", user: user, topic: topic, description: "aaaaaaa")
@@ -54,5 +54,30 @@ class LinkResourceSpec extends Specification implements DomainUnitTest<LinkResou
 
         then:
         linkResource2.errors.hasErrors()==1
+
+        when:
+        LinkResource linkResource3 = new LinkResource(url: " ", user: user, topic: topic, description: "aaaaaaa")
+
+        topic.addToResource(linkResource3)
+        user.addToTopic(topic)
+        user.addToResource(linkResource3)
+        linkResource3.validate()
+        user.save()
+
+        then:
+        linkResource3.errors.hasErrors()==1
+
+        when:
+        LinkResource linkResource4 = new LinkResource(url:null, user: user, topic: topic, description: "aaaaaaa")
+
+        topic.addToResource(linkResource4)
+        user.addToTopic(topic)
+        user.addToResource(linkResource4)
+        linkResource4.validate()
+        user.save()
+
+        then:
+        linkResource4.errors.hasErrors()==1
+
     }
 }
